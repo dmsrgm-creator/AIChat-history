@@ -93,7 +93,7 @@ AIChat-history/
 
 ### 2. Клонирование и настройка
 
-```bash
+
 git clone git@github.com:dmsrgm-creator/AIChat-history.git
 cd AIChat-history
 
@@ -102,7 +102,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 cp .env.example .env
-# отредактируйте .env — впишите свои параметры подключения к Postgres
+- отредактируйте .env — впишите свои параметры подключения к Postgres
 
 ### 3. Подготовка БД
 
@@ -113,17 +113,17 @@ psql -h 127.0.0.1 -U aichat -d aichat_db -f scripts/schema.sql
 
 ### 4. Загрузка данных
 
-# Проверка без записи в БД
+- Проверка без записи в БД
 python scripts/parse.py
 
-# Загрузка (идемпотентная — дубликаты пропускаются)
+- Загрузка (идемпотентная — дубликаты пропускаются)
 python scripts/load.py
 
 ### 5. Запуск UI
 
 streamlit run app.py
 
-# Откройте http://localhost:8501
+-Откройте http://localhost:8501
 
 ### 6. Запуск как сервис (Linux)
 
