@@ -66,6 +66,30 @@ CREATE INDEX IF NOT EXISTS idx_conversations_raw_gin
 CREATE INDEX IF NOT EXISTS idx_conversations_inserted_at
     ON conversations (inserted_at);
 
+
+
+-- ============================================================
+-- Migration 002: sync support
+-- ============================================================
+
+-- Флаг «нужна классификация» — TRUE для новых/изменённых,
+-- FALSE после успешной классификации.
+ALTER TABLE conversations
+    ADD COLUMN IF NOT EXISTS needs_classification BOOLEAN NOT NULL DEFAULT TRUE;
+
+-- Когда диалог был удалён из источника (не удаляем из БД, но помечаем).
+ALTER TABLE conversations
+    ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ;
+
+-- Индекс для быстрого поиска «что нужно классифицировать».
+CREATE INDEX IF NOT EXISTS idx_conversations_needs_classification
+    ON conversations (needs_classification)
+    WHERE needs_classification = TRUE;
+
+
+
+
+
 -- На будущее: полнотекстовый поиск по содержимому fragments
 -- (раскомментируем на этапе RAG, когда будем делать tsvector)
 -- CREATE INDEX idx_fragments_content_fts ON fragments USING GIN (to_tsvector('russian', content));
