@@ -1,0 +1,25 @@
+[Unit]
+Description=AIChat History — Streamlit UI
+Documentation=https://github.com/dmsrgm-creator/AIChat-history
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=%i
+Group=%i
+WorkingDirectory=/home/%i/AIChat-history
+
+Environment="PATH=/home/%i/AIChat-history/.venv/bin:/usr/local/bin:/usr/bin:/bin"
+Environment="PYTHONUNBUFFERED=1"
+
+ExecStart=/home/%i/AIChat-history/.venv/bin/streamlit run app.py
+
+Restart=on-failure
+RestartSec=5
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
