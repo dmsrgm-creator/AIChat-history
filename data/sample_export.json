@@ -1,0 +1,40 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "title": "Пример диалога",
+    "inserted_at": "2025-01-01T12:00:00.000000+00:00",
+    "updated_at": "2025-01-01T12:05:00.000000+00:00",
+    "mapping": {
+      "root": {
+        "id": "root",
+        "parent": null,
+        "children": ["1"],
+        "message": null
+      },
+      "1": {
+        "id": "1",
+        "parent": "root",
+        "children": ["2"],
+        "message": {
+          "model": "deepseek-chat",
+          "inserted_at": "2025-01-01T12:00:10.000000+00:00",
+          "fragments": [
+            {"type": "REQUEST", "content": "Привет! Расскажи про Python."}
+          ]
+        }
+      },
+      "2": {
+        "id": "2",
+        "parent": "1",
+        "children": [],
+        "message": {
+          "model": "deepseek-chat",
+          "inserted_at": "2025-01-01T12:00:15.000000+00:00",
+          "fragments": [
+            {"type": "RESPONSE", "content": "Python — высокоуровневый язык программирования..."}
+          ]
+        }
+      }
+    }
+  }
+]
