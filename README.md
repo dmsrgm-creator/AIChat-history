@@ -94,49 +94,49 @@ AIChat-history/
 ### 2. Клонирование и настройка
 
 
-git clone git@github.com:dmsrgm-creator/AIChat-history.git
-cd AIChat-history
+- git clone git@github.com:dmsrgm-creator/AIChat-history.git
+- cd AIChat-history
 
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+- python3 -m venv .venv
+- source .venv/bin/activate
+- pip install -r requirements.txt
 
-cp .env.example .env
+- cp .env.example .env
 - отредактируйте .env — впишите свои параметры подключения к Postgres
 
 ### 3. Подготовка БД
 
-CREATE ROLE aichat WITH LOGIN PASSWORD 'your_password';
-CREATE DATABASE aichat_db OWNER aichat;
+- CREATE ROLE aichat WITH LOGIN PASSWORD 'your_password';
+- CREATE DATABASE aichat_db OWNER aichat;
 
-psql -h 127.0.0.1 -U aichat -d aichat_db -f scripts/schema.sql
+- psql -h 127.0.0.1 -U aichat -d aichat_db -f scripts/schema.sql
 
 ### 4. Загрузка данных
 
-- Проверка без записи в БД
-python scripts/parse.py
+####  Проверка без записи в БД
+- python scripts/parse.py
 
-- Загрузка (идемпотентная — дубликаты пропускаются)
-python scripts/load.py
+####  Загрузка (идемпотентная — дубликаты пропускаются)
+- python scripts/load.py
 
 ### 5. Запуск UI
 
-streamlit run app.py
+- streamlit run app.py
 
--Откройте http://localhost:8501
+- Откройте http://localhost:8501
 
 ### 6. Запуск как сервис (Linux)
 
-sudo cp deploy/aichat-ui.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable --now aichat-ui
-sudo systemctl status aichat-ui
+- sudo cp deploy/aichat-ui.service /etc/systemd/system/
+- sudo systemctl daemon-reload
+- sudo systemctl enable --now aichat-ui
+- sudo systemctl status aichat-ui
 
 ### 7. Формат данных
 
-Проект рассчитан на официальный экспорт DeepSeek — JSON-массив диалогов, где каждый диалог содержит дерево mapping с узлами-сообщениями и fragments внутри (типы: REQUEST, RESPONSE, THINK, SEARCH, FILE, TOOL_SEARCH, TOOL_OPEN).
+- Проект рассчитан на официальный экспорт DeepSeek — JSON-массив диалогов, где каждый диалог содержит дерево mapping с узлами-сообщениями и fragments внутри (типы: REQUEST, RESPONSE, THINK, SEARCH, FILE, TOOL_SEARCH, TOOL_OPEN).
 
-Пример структуры — в data/sample_export.json.
+- Пример структуры — в data/sample_export.json.
 
 ##  Roadmap
 
